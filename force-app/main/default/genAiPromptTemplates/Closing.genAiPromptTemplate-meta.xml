@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <developerName>Closing</developerName>
+    <masterLabel>クロージング</masterLabel>
+    <templateVersions>
+        <content>{!$Input:name}様からの依頼をお受付いたしました。
+これにて案内を終了いたします。
+ありがとうございました。
+</content>
+        <inputs>
+            <apiName>name</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>名前</masterLabel>
+            <referenceName>Input:name</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultOpenAIGPT4OmniMini</primaryModel>
+        <status>Published</status>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

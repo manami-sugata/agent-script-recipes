@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <developerName>carInsuranceType</developerName>
+    <masterLabel>車両保険タイプ</masterLabel>
+    <templateVersions>
+        <content>車両保険には『一般条件』と『車対車＋限定危険』の2種類がございます。
+ 簡単にご説明いたします。」
+ 車両保険には２つの補償タイプがございます。
+ それぞれの特徴を簡単にご説明いたします。
+ 1. **一般条件**
+  - 補償範囲が広く、**ご自身の運転ミスによる単独事故**（ガードレール・電柱への衝突など）も補償されます。
+  - **他の車との衝突・当て逃げ・盗難**など、ほとんどの事故が対象です。
+  - 安全・安心を重視されるお客さまにおすすめです。
+ 2. **車対車＋限定危険**
+  - 補償範囲を限定し、保険料を抑えたタイプです。
+  - **他の車との衝突・盗難・火災・台風などの自然災害**は補償対象ですが、
+   **単独事故（ガードレールや自転車との接触など）**は対象外です。
+  - 費用を抑えつつ必要な補償を確保したいお客さまにおすすめです。
+</content>
+        <primaryModel>sfdc_ai__DefaultOpenAIGPT4OmniMini</primaryModel>
+        <status>Published</status>
+    </templateVersions>
+    <type>einstein_gpt__global</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

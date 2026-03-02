@@ -1,0 +1,200 @@
+# Unique name for this workflow
+name: CI on PR
+
+# Definition when the workflow should run
+on:
+    workflow_dispatch:
+        inputs:
+            prerelease:
+                description: 'Run on a prerelease org?'
+                required: false
+                type: boolean
+    pull_request:
+        types: [opened, edited, synchronize, reopened]
+
+# Workflow environment variables
+env:
+    # Is the PR base branch a prerelease branch
+    IS_PRERELEASE: ${{ startsWith(github.event.pull_request.base.ref, 'prerelease/') || inputs.prerelease  }}
+
+# Jobs to be executed
+jobs:
+    # Dummy job used to skip CI run on automated PRs
+    skip-ci:
+        if: github.actor == 'trailheadapps-bot'
+        runs-on: trailheadapps-Ubuntu
+        steps:
+            - name: Noop
+              run: |
+                  echo "Skipping CI run for automated PRs."
+
+    # Formatting and linting only runs on human-submitted PRs
+    format-lint-lwc-tests:
+        if: github.actor != 'trailheadapps-bot'
+        runs-on: trailheadapps-Ubuntu
+        steps:
+            # Checkout the source code
+            - name: 'Checkout source code'
+              uses: actions/checkout@v4
+
+            # Install Volta to enforce proper node and package manager versions
+            - name: 'Install Volta'
+              uses: volta-cli/action@v4
+
+            # Cache node_modules to speed up the process
+            - name: 'Restore node_modules cache'
+              id: cache-npm
+              uses: actions/cache@v4
+              with:
+                  path: node_modules
+                  key: npm-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      npm-${{ env.cache-name }}-
+                      npm-
+
+            # Install npm dependencies for Prettier and Jest
+            - name: 'Install npm dependencies'
+              if: steps.cache-npm.outputs.cache-hit != 'true'
+              run: HUSKY=0 npm ci
+
+            # Prettier formatting
+            - name: 'Code formatting verification with Prettier'
+              run: npm run prettier:verify
+
+            # Install Salesforce CLI
+            - name: 'Install Salesforce CLI'
+              run: |
+                  npm install @salesforce/cli --location=global
+                  nodeInstallPath=$(npm config get prefix)
+                  echo "$nodeInstallPath/bin" >> $GITHUB_PATH
+                  cd "$nodeInstallPath/bin"
+                  ./sf --version
+
+            # Install Salesforce CLI Code Analyzer plugin
+            - name: 'Install Salesforce CLI Code Analyzer plugin'
+              run: sf plugins install code-analyzer
+
+            # Run Code Analyzer
+            - name: 'Run Code Analyzer'
+              id: run-code-analyzer
+              uses: forcedotcom/run-code-analyzer@v2
+              with:
+                  run-arguments: --workspace "force-app/main" --view detail --output-file "sca-results.csv" --config-file "code-analyzer.yml"
+                  results-artifact-name: code-analyzer-results
+                  github-token: ${{ github.token }}
+
+            # Check for Code Analyzer critical or high severity violations
+            - name: 'Check for Code Analyzer critical or high severity violations'
+              if: |
+                  steps.run-code-analyzer.outputs.exit-code > 0 ||
+                  steps.run-code-analyzer.outputs.num-sev1-violations > 0 ||
+                  steps.run-code-analyzer.outputs.num-sev2-violations > 0
+              run: |
+                  echo One of more Code Analyzer critical or high severity violations found
+                  exit 1
+
+    # Auto merge Dependabot PRs for:
+    # - patch updates on prod dependencies
+    # - minor updates on dev dependencies
+    dependabot-auto-merge:
+        # Only run for Dependabot PRs
+        if: github.actor == 'dependabot[bot]'
+        runs-on: trailheadapps-Ubuntu
+        needs: format-lint-lwc-tests
+        permissions:
+            pull-requests: write
+            contents: write
+        steps:
+            - name: 'Fetch Dependabot metadata'
+              id: dependabot
+              uses: dependabot/fetch-metadata@v2
+
+            - name: 'Check auto merge conditions'
+              id: auto-merge
+              if: |
+                  (
+                    steps.dependabot.outputs.update-type == 'version-update:semver-patch' &&
+                    contains('direct:production,indirect:production', steps.dependabot.outputs.dependency-type)
+                  ) || (
+                    contains('version-update:semver-minor,version-update:semver-patch', steps.dependabot.outputs.update-type) &&
+                    contains('direct:development,indirect:development', steps.dependabot.outputs.dependency-type)
+                  )
+              run: echo "::notice ::auto-merge conditions satisfied"
+
+            - name: 'Approve and merge PR'
+              if: steps.auto-merge.conclusion == 'success'
+              run: |
+                  gh pr review --approve "$PR_URL"
+                  gh pr merge --auto --rebase "$PR_URL"
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  PR_URL: ${{ github.event.pull_request.html_url }}
+
+    scratch-org-test:
+        runs-on: trailheadapps-Ubuntu
+        needs: format-lint-lwc-tests
+        if: github.actor != 'dependabot[bot]'
+        steps:
+            # Checkout the source code
+            - name: 'Checkout source code'
+              uses: actions/checkout@v4
+
+            # Install Salesforce CLI
+            - name: 'Install Salesforce CLI'
+              run: |
+                  npm install @salesforce/cli --location=global
+                  nodeInstallPath=$(npm config get prefix)
+                  echo "$nodeInstallPath/bin" >> $GITHUB_PATH
+                  sf --version
+
+            # Store secret for dev hub
+            - name: 'Populate auth file with DEVHUB_SFDX_URL secret'
+              shell: bash
+              run: |
+                  echo ${{ secrets.DEVHUB_SFDX_URL }} > ./DEVHUB_SFDX_URL.txt
+                  secretFileSize=$(wc -c "./DEVHUB_SFDX_URL.txt" | awk '{print $1}')
+                  if [ $secretFileSize == 1 ]; then
+                      echo "Missing DEVHUB_SFDX_URL secret. Is this workflow running on a fork?";
+                      exit 1;
+                  fi
+
+            # Authenticate dev hub
+            - name: 'Authenticate Dev Hub'
+              run: sf org login sfdx-url -f ./DEVHUB_SFDX_URL.txt -a devhub -d
+
+            # Create prerelease scratch org
+            - name: 'Create prerelease scratch org'
+              if: ${{ env.IS_PRERELEASE }}
+              run: sf org create scratch -f config/project-scratch-def.json -a scratch-org -d -y 1 -w 10 --release=preview
+
+            # Create scratch org
+            - name: 'Create scratch org'
+              if: ${{ !env.IS_PRERELEASE }}
+              run: sf org create scratch -f config/project-scratch-def.json -a scratch-org -d -y 1 -w 10
+
+            # Assign Manage Prompt Template permission set
+            - name: 'Assign Manage Prompt Template permission set'
+              run: sf org assign permset -n EinsteinGPTPromptTemplateManager
+
+            # Deploy source to scratch org
+            - name: 'Push source to scratch org'
+              run: sf project deploy start
+
+            # Assign permission sets
+            - name: 'Assign permission sets to default user'
+              run: |
+                  sf org assign permset -n Agent_Script_Recipes_Data
+                  sf org assign permset -n Agent_Script_Recipes_App
+
+            # Import sample data
+            - name: 'Import sample data'
+              run: sf data tree import -p ./data/data-plan.json
+
+            # Run Apex tests in scratch org
+            - name: 'Run Apex tests'
+              run: sf apex test run -c -r human -d ./tests/apex -w 20
+
+            # Housekeeping
+            - name: 'Delete scratch org'
+              if: always()
+              run: sf org delete scratch -p -o scratch-org

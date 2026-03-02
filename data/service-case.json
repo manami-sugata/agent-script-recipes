@@ -1,0 +1,47 @@
+{
+    "records": [
+        {
+            "attributes": { "type": "Case", "referenceId": "case1" },
+            "Subject": "Issue with product",
+            "Status": "New",
+            "Priority": "Medium",
+            "Origin": "Web",
+            "Survey_Logs__r": {
+                "records": [
+                    {
+                        "attributes": {
+                            "type": "ASR_Survey_Log__c",
+                            "referenceId": "survey1"
+                        },
+                        "Sent_Date__c": "2024-11-20"
+                    }
+                ]
+            }
+        },
+        {
+            "attributes": { "type": "Case", "referenceId": "case2" },
+            "Subject": "Billing inquiry",
+            "Status": "Closed",
+            "Priority": "Low",
+            "Origin": "Phone",
+            "Survey_Logs__r": {
+                "records": [
+                    {
+                        "attributes": {
+                            "type": "ASR_Survey_Log__c",
+                            "referenceId": "survey2"
+                        },
+                        "Sent_Date__c": "2024-10-15"
+                    }
+                ]
+            }
+        },
+        {
+            "attributes": { "type": "Case", "referenceId": "case3" },
+            "Subject": "Shipping delay",
+            "Status": "Escalated",
+            "Priority": "High",
+            "Origin": "Email"
+        }
+    ]
+}

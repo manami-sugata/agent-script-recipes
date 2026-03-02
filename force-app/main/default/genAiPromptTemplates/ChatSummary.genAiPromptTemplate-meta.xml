@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <developerName>ChatSummary</developerName>
+    <masterLabel>会話の要約</masterLabel>
+    <templateVersions>
+        <content>以下の「会話履歴」を読み取り、サポート担当者が後から内容を把握しやすいように要約してください。
+
+制約条件
+・200文字以内の日本語で出力すること 
+・「顧客の依頼内容」「実施した対応」「問い合わせ内容（あれば）」の3項目で構成すること 
+・箇条書きを使用すること
+
+会話履歴
+{!$Input:ChatHistory}
+</content>
+        <inputs>
+            <apiName>ChatHistory</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>会話履歴</masterLabel>
+            <referenceName>Input:ChatHistory</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultOpenAIGPT4OmniMini</primaryModel>
+        <status>Published</status>
+    </templateVersions>
+    <templateVersions>
+        <content>以下の「会話履歴」を読み取り、サポート担当者が後から内容を把握しやすいようにフォーマット通りに要約してください。
+
+フォーマット
+聴衆内容は以下
+・登録年月日：
+・初度登録年月：
+・自動車の種別：
+・型式：
+・燃料の種類：
+・車名：
+・ハイブリット車要否：
+・コネクティッド要否：
+・ナンバープレートの番号：
+・車台番号：
+・車検有効期間：
+・車両保険付帯有無：
+・その他変更項目：
+
+会話履歴
+{!$Input:ChatHistory}
+</content>
+        <inputs>
+            <apiName>ChatHistory</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>会話履歴</masterLabel>
+            <referenceName>Input:ChatHistory</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultOpenAIGPT4OmniMini</primaryModel>
+        <status>Published</status>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

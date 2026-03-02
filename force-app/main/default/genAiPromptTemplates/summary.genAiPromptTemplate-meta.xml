@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <developerName>summary</developerName>
+    <masterLabel>要約</masterLabel>
+    <templateVersions>
+        <content>以下の「要約内容」を出力してください。サポート担当者が後から内容を把握しやすいようにフォーマット通りに要約してください。特記事項はあれば追記してください。
+
+フォーマット
+聴衆内容は以下
+{!$Input:summary}
+・その他特記事項：
+</content>
+        <inputs>
+            <apiName>summary</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>要約</masterLabel>
+            <referenceName>Input:summary</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultOpenAIGPT4OmniMini</primaryModel>
+        <status>Published</status>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

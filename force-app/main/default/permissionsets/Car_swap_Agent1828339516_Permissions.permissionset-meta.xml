@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>CarValueInfoStub</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>IdentityBondNameCheck</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>IdentityVerification</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>IdentityVerificationInvokeVerify</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>IdentityVerificationVerifyContract</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>UserResponseStepAction1</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>UserResponseSummaryAction</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>VehicleInsQuoteStub</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <description>Agentforce エージェントのカスタム権限を許可 : Car_swap_Agent のエージェントユーザー : car_swap_agent@00dgl00000faw4w4601347.ext。</description>
+    <flowAccesses>
+        <enabled>true</enabled>
+        <flow>Identity_Varification_Flow</flow>
+    </flowAccesses>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Car_swap_Agent1828339516権限</label>
+    <license>Einstein Agent</license>
+</PermissionSet>

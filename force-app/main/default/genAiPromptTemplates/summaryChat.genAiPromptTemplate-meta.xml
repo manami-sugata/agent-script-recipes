@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <developerName>summaryChat</developerName>
+    <masterLabel>会話要約</masterLabel>
+    <templateVersions>
+        <content>以下の「要約内容」を読み取り、サポート担当者が後から内容を把握しやすいようにフォーマット通りに要約してください。
+
+フォーマット
+聴衆内容は以下
+・契約者名：
+・証券番号：
+・登録年月日：
+・初度登録年月：
+・自動車の種別：
+・型式：
+・燃料の種類：
+・車名：
+・ハイブリット車要否：
+・コネクティッド要否：
+・ナンバープレートの番号：
+・車台番号：
+・車検有効期間：
+・車両保険付帯有無：
+・その他変更項目：
+
+要約内容
+{!$Input:OutputSummary}
+
+
+
+
+</content>
+        <inputs>
+            <apiName>OutputSummary</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>要約</masterLabel>
+            <referenceName>Input:OutputSummary</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultOpenAIGPT4OmniMini</primaryModel>
+        <status>Published</status>
+    </templateVersions>
+    <templateVersions>
+        <content>以下の「要約内容」を出力してください。サポート担当者が後から内容を把握しやすいようにフォーマット通りに要約してください。特記事項はあれば追記してください。
+
+フォーマット
+聴衆内容は以下
+{!$Input:OutputSummary}
+・その他特記事項：
+
+
+
+
+
+
+</content>
+        <inputs>
+            <apiName>OutputSummary</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>要約</masterLabel>
+            <referenceName>Input:OutputSummary</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultOpenAIGPT4OmniMini</primaryModel>
+        <status>Published</status>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

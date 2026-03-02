@@ -1,0 +1,140 @@
+# MultiTopicNavigation - Managing Multiple Topics and Transitions
+# This agent demonstrates how to use multiple topics and transition between them
+
+config:
+   agent_name: "MultiTopicNavigation"
+   agent_label: "MultiTopicNavigation"
+   description: "Multi-topic agent that handles browsing, booking, and support"
+
+variables:
+   hotel_name: mutable string = ""
+      description: "Selected hotel name"
+
+   check_in_date: mutable string = ""
+      description: "Check-in date"
+
+   check_out_date: mutable string = ""
+      description: "Check-out date"
+
+   booking_confirmed: mutable boolean = False
+      description: "Whether booking has been confirmed"
+
+   booking_id: mutable string = ""
+      description: "Confirmed booking ID"
+
+system:
+   messages:
+      welcome: "Welcome to our hotel booking service! I can help you browse hotels, make bookings, or answer questions."
+      error: "I encountered an issue. Let me help you from here."
+
+   instructions: "You are a professional hotel booking assistant. Be helpful, accurate, and guide users through their journey."
+
+start_agent topic_selector:
+   description: "Welcome users and determine their hotel service needs"
+   
+   reasoning:
+      instructions:|
+         Select the tool that best matches the user's message and conversation history. If it's unclear, make your best guess.
+      actions:
+         browse_hotels: @utils.transition to @topic.hotel_browse
+            description: "Browse and search for available hotels"
+         
+         view_booking: @utils.transition to @topic.hotel_confirmation
+            description: "View existing booking confirmations"
+            available when @variables.booking_confirmed == True
+
+# Topic 1: Initial topic where users land
+# This topic helps users browse hotels and decide what they want
+topic hotel_browse:
+   description: "Browse available hotels and view information"
+
+   actions:
+      search_hotels:
+         description: "Search for available hotels"
+         inputs:
+            location: string
+               description: "City or location to search for hotels in"
+            check_in: string
+               description: "Check-in date in ISO format (YYYY-MM-DD)"
+            check_out: string
+               description: "Check-out date in ISO format (YYYY-MM-DD)"
+         outputs:
+            hotels: list[object]
+               description: "List of available hotel objects with name, price, rating, and amenities information"
+               complex_data_type_name: "lightning__recordInfoType" # This is the name of the complex data type that is used to store the hotel objects
+         target: "flow://SearchHotels"
+
+   reasoning:
+      instructions:->
+         | Help users find the perfect hotel using {!@actions.search_hotels}.
+
+           Ensure to ask the user for:
+           - location
+           - check-in date
+           - check-out date
+
+           Do not ask for other booking details.
+
+           If you find available hotels provide the user the hotel information.
+
+      actions:
+         search_hotels: @actions.search_hotels
+            with location=...
+            with check_in=...
+            with check_out=...
+            transition to @topic.hotel_booking
+
+# Topic 2: Booking topic handles the reservation process
+topic hotel_booking:
+   description: "Handle hotel booking and reservation"
+
+   actions:
+      create_booking:
+         description: "Creates a hotel reservation"
+         inputs:
+            hotel_name: string
+               description: "Name of the hotel to book"
+            check_in: string
+               description: "Check-in date in ISO format (YYYY-MM-DD)"
+            check_out: string
+               description: "Check-out date in ISO format (YYYY-MM-DD)"
+         outputs:
+            booking_id: string
+               description: "Unique booking confirmation identifier"
+            success: boolean
+               description: "Indicates whether the booking was created successfully"
+         target: "flow://CreateBooking"
+
+   reasoning:
+      instructions:->
+         | Complete the booking for the customer using {!@actions.create_booking}.
+
+      actions:
+         create_booking: @actions.create_booking
+            with hotel_name=...
+            with check_in=...
+            with check_out=...
+            set @variables.booking_id = @outputs.booking_id
+            set @variables.booking_confirmed = @outputs.success
+            transition to @topic.hotel_confirmation
+
+# Topic 3: Confirmation topic shows booking details
+topic hotel_confirmation:
+   description: "Confirm booking and provide details"
+
+   reasoning:
+      instructions:->
+         | The booking has been confirmed!
+
+           Confirmation details:
+           - Booking ID: {!@variables.booking_id}
+           - Hotel: {!@variables.hotel_name}
+           - Check-in: {!@variables.check_in_date}
+           - Check-out: {!@variables.check_out_date}
+  
+           Provide these details to the customer and ask if they need anything else.
+           If they want to make another booking, use start_new_booking action.
+
+      actions:
+         start_new_booking: @utils.transition to @topic.hotel_browse
+            description: "Start a new hotel search and booking"

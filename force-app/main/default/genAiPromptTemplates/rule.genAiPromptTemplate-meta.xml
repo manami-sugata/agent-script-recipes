@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>エージェント実行時のルールを記載。</description>
+    <developerName>rule</developerName>
+    <masterLabel>ルール</masterLabel>
+    <templateVersions>
+        <content>ルール
+・必ず初めにユーザーの用件と保険種類を確認する。
+・用件が判断できなかったら再度聞くようにし、offトピックは使用してはいけない。
+・1-18の用件に振り分けができなかったら基本的に19.問い合わせトピックに遷移させるようにする。
+</content>
+        <inputs>
+            <apiName>PreviousResponse</apiName>
+            <definition>primitive://String</definition>
+            <referenceName>Input:PreviousResponse</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>SpecificAnomaly</apiName>
+            <definition>primitive://String</definition>
+            <referenceName>Input:SpecificAnomaly</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>UserContext</apiName>
+            <definition>primitive://String</definition>
+            <referenceName>Input:UserContext</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultOpenAIGPT4OmniMini</primaryModel>
+        <status>Published</status>
+    </templateVersions>
+    <type>securityagent__anomalyAnalysis</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

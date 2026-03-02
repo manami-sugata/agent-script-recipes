@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Agentforce エージェントのカスタム権限を許可 : Customer_Support_Agent のエージェントユーザー : customer_support_agent@00dgl00000faw4w1212891126.ext。</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Customer_Support_Agent1611457495権限</label>
+    <license>Einstein Agent</license>
+</PermissionSet>

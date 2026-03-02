@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <developerName>carInsurance_general</developerName>
+    <masterLabel>車両保険（一般条件）</masterLabel>
+    <templateVersions>
+        <content>「では、今年度は{!$Input:carPrice}万円で設定いたします。」
+</content>
+        <inputs>
+            <apiName>carPrice</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>車両金額</masterLabel>
+            <referenceName>Input:carPrice</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultOpenAIGPT4OmniMini</primaryModel>
+        <status>Published</status>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <developerName>Cloging</developerName>
+    <masterLabel>クロージング</masterLabel>
+    <templateVersions>
+        <content>ご確認いただきありがとうございます。
+
+それでは、今回の内容でお手続きさせていただきます。本日は{!$Input:name}様のご対応を承りました。
+
+今後もご不明な点やご相談がございましたら、どうぞお気軽にカスタマーセンターまでご連絡ください。
+本日はありがとうございました。
+</content>
+        <inputs>
+            <apiName>name</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>名前</masterLabel>
+            <referenceName>Input:name</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultOpenAIGPT4OmniMini</primaryModel>
+        <status>Published</status>
+    </templateVersions>
+    <templateVersions>
+        <content>ご確認いただきありがとうございます。
+
+それでは、今回の内容でお手続きさせていただきます。本日は{!$Input:name}様のご対応を承りました。
+
+今後もご不明な点やご相談がございましたら、どうぞお気軽にカスタマーセンターまでご連絡ください。
+本日はありがとうございました。
+</content>
+        <inputs>
+            <apiName>name</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>名前</masterLabel>
+            <referenceName>Input:name</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultOpenAIGPT4OmniMini</primaryModel>
+        <status>Published</status>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>
