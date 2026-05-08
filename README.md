@@ -1,5 +1,6 @@
 # Agent Script Recipes
 test
+test2
 
 [![CI](https://github.com/trailheadapps/agent-script-recipes/actions/workflows/ci.yml/badge.svg)](https://github.com/trailheadapps/agent-script-recipes/actions/workflows/ci.yml)
 
