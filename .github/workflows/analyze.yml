@@ -1,0 +1,43 @@
+name: Salesforce Code Analyzer
+
+on:
+  pull_request:
+    types: [opened, reopened, edited, synchronize]
+    branches:
+      - main
+
+jobs:
+  salesforce-code-analyzer:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. コードを取得
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Salesforce CLIをインストール
+      - name: Install Salesforce CLI
+        run: |
+          npm install -g @salesforce/cli
+          sf --version
+
+      # 3. Code Analyzer v5.xをインストール
+      - name: Install Code Analyzer Plugin
+        run: |
+          sf plugins install @salesforce/plugin-code-analyzer
+          sf code-analyzer --version
+
+      # 4. Code Analyzerを実行
+      - name: Run Code Analyzer
+        id: run-code-analyzer
+        uses: forcedotcom/run-code-analyzer@v2
+        with:
+          run-arguments: --target force-app/ --output-file results.html
+          results-artifact-name: code-analyzer-results
+
+      # 5. 結果に基づいてPRをFailさせる
+      - name: Check results and fail if needed
+        if: |
+          steps.run-code-analyzer.outputs.exit-code > 0 ||
+          steps.run-code-analyzer.outputs.num-sev1-violations > 0 ||
+          steps.run-code-analyzer.outputs.num-violations > 10
+        run: exit 1
