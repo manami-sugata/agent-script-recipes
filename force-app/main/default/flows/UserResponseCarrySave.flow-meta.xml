@@ -33,6 +33,7 @@
             </value>
         </inputParameters>
         <nameSegment>UserResponseCarrySave</nameSegment>
+        <offset>0</offset>
         <outputParameters>
             <assignToReference>userResponseName</assignToReference>
             <name>userResponseName</name>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>Chosen for requests to send updates to customers regarding vehicle replacement steps.</description>
+    <developerName>p_16jgL0000019LXh_Customer_Notification_System</developerName>
+    <genAiFunctions>
+        <functionName>Slack__SendMessageToSlackChannel</functionName>
+    </genAiFunctions>
+    <genAiFunctions>
+        <functionName>EmployeeCopilot__AnswerQuestionsWithKnowledge</functionName>
+    </genAiFunctions>
+    <genAiPluginInstructions>
+        <description>If the customer requests updates, use Slack__SendMessageToSlackChannel to send notifications.</description>
+        <developerName>instruction_0</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_0</masterLabel>
+    </genAiPluginInstructions>
+    <language>en_US</language>
+    <masterLabel>Customer Notification System</masterLabel>
+    <pluginType>Topic</pluginType>
+    <scope>Your job is to only send notifications to customers about the status and next steps of their vehicle replacement process. You cannot handle other types of requests.</scope>
+</GenAiPlugin>

@@ -24,6 +24,7 @@
             </value>
         </inputParameters>
         <nameSegment>IdentityVerificationVerifyCarNumber</nameSegment>
+        <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <actionCalls>
@@ -68,6 +69,7 @@
             </value>
         </inputParameters>
         <nameSegment>IdentityVerificationCustomerInfoAny</nameSegment>
+        <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <actionCalls>
@@ -94,6 +96,7 @@
             </value>
         </inputParameters>
         <nameSegment>IdentityVerificationVerifyContract</nameSegment>
+        <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <actionCalls>
@@ -132,6 +135,7 @@
             </value>
         </inputParameters>
         <nameSegment>IdentityVerificationVerifyCustomerInfo</nameSegment>
+        <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <actionCalls>
@@ -152,6 +156,7 @@
             </value>
         </inputParameters>
         <nameSegment>IdentityVerificationExistsCustomerName</nameSegment>
+        <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <actionCalls>
@@ -172,6 +177,7 @@
             </value>
         </inputParameters>
         <nameSegment>IdentityVerificationHasTelAndBirth</nameSegment>
+        <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <apiVersion>65.0</apiVersion>

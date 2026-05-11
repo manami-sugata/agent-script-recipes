@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>This topic is chosen when a customer seeks clarification on the steps to file a claim after making changes to their insurance policy.</description>
+    <developerName>p_16jgL0000019Le9_Claims_Process_Clarification</developerName>
+    <genAiFunctions>
+        <functionName>SvcCopilotTmpl__GetCaseByCaseNumber</functionName>
+    </genAiFunctions>
+    <genAiFunctions>
+        <functionName>EmployeeCopilot__AnswerQuestionsWithKnowledge</functionName>
+    </genAiFunctions>
+    <genAiPluginInstructions>
+        <description>If the customer asks about filing a claim, explain the required steps and documentation.</description>
+        <developerName>instruction_0</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_0</masterLabel>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>If the customer provides a case number, use SvcCopilotTmpl__GetCaseByCaseNumber to retrieve details about their case.</description>
+        <developerName>instruction_1</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_1</masterLabel>
+    </genAiPluginInstructions>
+    <language>en_US</language>
+    <masterLabel>Claims Process Clarification</masterLabel>
+    <pluginType>Topic</pluginType>
+    <scope>Your job is to only explain the steps for filing claims after a policy change, including documentation requirements and submission processes. You aren&apos;t able to process claims directly or provide claim status updates.</scope>
+</GenAiPlugin>

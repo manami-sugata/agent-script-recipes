@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>This topic is chosen when a customer requests information or assistance regarding modifying their current insurance coverage options.</description>
+    <developerName>p_16jgL0000019Le9_Coverage_Change_Guidance</developerName>
+    <genAiFunctions>
+        <functionName>EmployeeCopilot__AnswerQuestionsWithKnowledge</functionName>
+    </genAiFunctions>
+    <genAiPluginInstructions>
+        <description>If the customer requests guidance on coverage options, provide information about available choices and their implications.</description>
+        <developerName>instruction_0</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_0</masterLabel>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>If the customer wishes to proceed with a coverage change, direct them to update their policy under the &apos;Policy Update Assistance&apos; topic.</description>
+        <developerName>instruction_1</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_1</masterLabel>
+    </genAiPluginInstructions>
+    <language>en_US</language>
+    <masterLabel>Coverage Change Guidance</masterLabel>
+    <pluginType>Topic</pluginType>
+    <scope>Your job is to only provide information on modifying vehicle insurance coverage options, including explaining coverage details and assisting with adjustments. You aren&apos;t able to process claims or renew policies.</scope>
+</GenAiPlugin>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>Chosen for requests to update insurance policies during vehicle replacement.</description>
+    <developerName>p_16jgL0000019LXh_Insurance_Coverage_Updates</developerName>
+    <genAiFunctions>
+        <functionName>EmployeeCopilot__GetPolicyDetails</functionName>
+    </genAiFunctions>
+    <genAiFunctions>
+        <functionName>EmployeeCopilot__AnswerQuestionsWithKnowledge</functionName>
+    </genAiFunctions>
+    <genAiPluginInstructions>
+        <description>If the customer asks to update insurance coverage, use EmployeeCopilot__GetPolicyDetails to retrieve policy details.</description>
+        <developerName>instruction_0</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_0</masterLabel>
+    </genAiPluginInstructions>
+    <language>en_US</language>
+    <masterLabel>Insurance Coverage Updates</masterLabel>
+    <pluginType>Topic</pluginType>
+    <scope>Your job is to only assist with updating insurance policy details related to vehicle replacement. You cannot handle identity verification or document checks.</scope>
+</GenAiPlugin>

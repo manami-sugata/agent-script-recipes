@@ -1,0 +1,50 @@
+name: Salesforce Tests
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      # 2. SF CLI インストール
+      - name: Install Salesforce CLI
+        run: npm install --global @salesforce/cli
+
+      # 3. 認証
+      - name: Authenticate to org
+        run: |
+          echo "${{ secrets.SFDX_AUTH_URL }}"
+          sf org login sfdx-url --sfdx-url-stdin --alias target-org --set-default
+
+      # 4. Apex テスト
+      - name: Run Apex Tests
+        run: |
+          sf apex run test \
+            --test-level RunLocalTests \
+            --result-format junit \
+            --output-dir ./test-results/apex \
+            --wait 10 \
+            --target-org target-org
+
+      # 5. Agent テスト（非同期で実行→結果取得）
+      - name: Run Agent Tests
+        run: |
+          sf agent test run \
+            --agent-api-name MyAgent \
+            --output-dir ./test-results/agent \
+            --wait 10 \
+            --target-org target-org
+
+      # 6. テスト結果をArtifactとして保存
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: ./test-results/

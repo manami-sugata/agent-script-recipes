@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>Assist customers with understanding and completing vehicle replacement procedures.</description>
+    <developerName>p_16jgL0000019LHZ_Vehicle_Replacement_Process</developerName>
+    <genAiFunctions>
+        <functionName>EmployeeCopilot__AnswerQuestionsWithKnowledge</functionName>
+    </genAiFunctions>
+    <genAiPluginInstructions>
+        <description>If the customer asks about the steps for vehicle replacement, provide a detailed explanation of the process.</description>
+        <developerName>instruction_0</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_0</masterLabel>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>If the customer needs specific assistance, guide them to the appropriate resources or actions.</description>
+        <developerName>instruction_1</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_1</masterLabel>
+    </genAiPluginInstructions>
+    <language>en_US</language>
+    <masterLabel>Vehicle Replacement Process</masterLabel>
+    <pluginType>Topic</pluginType>
+    <scope>Your job is to only guide customers through the steps of replacing a vehicle in their insurance policy. You cannot handle policy updates or other unrelated inquiries.</scope>
+</GenAiPlugin>

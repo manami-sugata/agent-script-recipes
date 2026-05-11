@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>Chosen for requests related to verifying a customer&apos;s identity during vehicle replacement.</description>
+    <developerName>p_16jgL0000019LXh_Identity_Verification_Automation</developerName>
+    <genAiFunctions>
+        <functionName>SvcCopilotTmpl__SendEmailVerificationCode</functionName>
+    </genAiFunctions>
+    <genAiFunctions>
+        <functionName>SvcCopilotTmpl__VerifyCustomer</functionName>
+    </genAiFunctions>
+    <genAiFunctions>
+        <functionName>EmployeeCopilot__AnswerQuestionsWithKnowledge</functionName>
+    </genAiFunctions>
+    <genAiPluginInstructions>
+        <description>If the customer needs to verify their identity, use SvcCopilotTmpl__SendEmailVerificationCode.</description>
+        <developerName>instruction_0</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_0</masterLabel>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>If the customer provides a verification code, use SvcCopilotTmpl__VerifyCustomer.</description>
+        <developerName>instruction_1</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_1</masterLabel>
+    </genAiPluginInstructions>
+    <language>en_US</language>
+    <masterLabel>Identity Verification Automation</masterLabel>
+    <pluginType>Topic</pluginType>
+    <scope>Your job is to only handle identity verification tasks, including sending and verifying email verification codes. You cannot assist with document checks or policy updates.</scope>
+</GenAiPlugin>

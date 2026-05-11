@@ -18,6 +18,7 @@
             </value>
         </inputParameters>
         <nameSegment>IdentityVerification</nameSegment>
+        <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <apiVersion>65.0</apiVersion>
