@@ -21,6 +21,16 @@ jobs:
       - name: Install Code Analyzer Plugin
         run: sfdx plugins install @salesforce/sfdx-scanner@latest
 
+      - name: Authenticate to Salesforce
+        run: |
+          echo "${{ secrets.SALESFORCE_JWT_SECRET_KEY }}" > server.key
+          sf org login jwt \
+            --client-id ${{ secrets.SALESFORCE_CONSUMER_KEY }} \
+            --jwt-key-file server.key \
+            --username ${{ secrets.SALESFORCE_USERNAME }} \
+            --instance-url ${{ secrets.SALESFORCE_INSTANCE_URL }} \
+            --alias ciOrg
+
       - name: Run Code Analyzer
         id: run-code-analyzer
         uses: forcedotcom/run-code-analyzer@v1
@@ -28,6 +38,14 @@ jobs:
           run-command: run
           run-arguments: --normalize-severity --target force-app/ --outfile results.html
           results-artifact-name: code-analyzer-results
+
+      - name: Run Apex Tests
+        run: |
+          sf apex run test \
+            --target-org ciOrg \
+            --code-coverage \
+            --result-format human \
+            --wait 10
 
       - name: Check results and fail if needed
         if: |
