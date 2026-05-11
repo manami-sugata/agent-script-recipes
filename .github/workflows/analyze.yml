@@ -1,0 +1,37 @@
+name: Salesforce Code Analyzer
+
+on:
+  pull_request:
+    types: [opened, reopened, edited, synchronize]
+    branches:
+      - main
+
+jobs:
+  salesforce-code-analyzer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Salesforce CLI
+        run: |
+          npm install -g @salesforce/cli
+          sf --version
+
+      - name: Install Code Analyzer Plugin
+        run: sfdx plugins install @salesforce/sfdx-scanner@latest
+
+      - name: Run Code Analyzer
+        id: run-code-analyzer
+        uses: forcedotcom/run-code-analyzer@v1
+        with:
+          run-command: run
+          run-arguments: --normalize-severity --target force-app/ --outfile results.html
+          results-artifact-name: code-analyzer-results
+
+      - name: Check results and fail if needed
+        if: |
+          steps.run-code-analyzer.outputs.exit-code > 0 ||
+          steps.run-code-analyzer.outputs.num-sev1-violations > 0 ||
+          steps.run-code-analyzer.outputs.num-violations > 10
+        run: exit 1
