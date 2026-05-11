@@ -47,6 +47,22 @@ jobs:
             --result-format human \
             --wait 10
 
+      - name: Comment Code Analyzer results on PR
+        uses: actions/github-script@v7
+        if: always()
+        with:
+          script: |
+            const violations = '${{ steps.run-code-analyzer.outputs.num-violations }}';
+            const sev1 = '${{ steps.run-code-analyzer.outputs.num-sev1-violations }}';
+            const sev3 = '${{ steps.run-code-analyzer.outputs.num-sev3-violations }}';
+            const body = `## Salesforce Code Analyzer 結果\n| 項目 | 件数 |\n|---|---|\n| 問題の総数 | ${violations} |\n| 重大度1（最も深刻） | ${sev1} |\n| 重大度3 | ${sev3} |\n\n詳細はActionsのArtifact（results.html）を確認してください。`;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
+
       - name: Check results and fail if needed
         if: |
           steps.run-code-analyzer.outputs.exit-code > 0 ||
