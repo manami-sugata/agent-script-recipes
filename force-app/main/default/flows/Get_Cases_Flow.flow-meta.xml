@@ -21,6 +21,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case_Summary_Prompt</nameSegment>
+        <offset>0</offset>
         <outputParameters>
             <assignToReference>output_text</assignToReference>
             <name>promptResponse</name>

@@ -30,6 +30,7 @@
             </value>
         </inputParameters>
         <nameSegment>InsuranceSimulatorAction</nameSegment>
+        <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <apiVersion>65.0</apiVersion>

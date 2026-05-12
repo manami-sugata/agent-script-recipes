@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>Assist customers in verifying and submitting required documents for vehicle replacements.</description>
+    <developerName>p_16jgL0000019LHZ_Document_Verification_Support</developerName>
+    <genAiFunctions>
+        <functionName>EmployeeCopilot__AnswerQuestionsWithKnowledge</functionName>
+    </genAiFunctions>
+    <genAiPluginInstructions>
+        <description>If the customer submits documents, verify their completeness and accuracy.</description>
+        <developerName>instruction_0</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_0</masterLabel>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>Provide feedback on any missing or incorrect details in the submitted documents.</description>
+        <developerName>instruction_1</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_1</masterLabel>
+    </genAiPluginInstructions>
+    <language>en_US</language>
+    <masterLabel>Document Verification Support</masterLabel>
+    <pluginType>Topic</pluginType>
+    <scope>Your job is to only assist with verifying and ensuring the accuracy of documents submitted for vehicle replacement. You are not responsible for processing the documents or addressing unrelated queries.</scope>
+</GenAiPlugin>

@@ -24,6 +24,7 @@
             </value>
         </inputParameters>
         <nameSegment>IdentityVerificationVerifyContract</nameSegment>
+        <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <apiVersion>65.0</apiVersion>

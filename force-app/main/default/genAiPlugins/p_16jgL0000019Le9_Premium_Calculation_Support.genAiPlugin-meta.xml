@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>This topic is chosen when a customer inquires about calculating updated premiums due to changes in their policy or coverage.</description>
+    <developerName>p_16jgL0000019Le9_Premium_Calculation_Support</developerName>
+    <genAiFunctions>
+        <functionName>EmployeeCopilot__AnswerQuestionsWithKnowledge</functionName>
+    </genAiFunctions>
+    <genAiPluginInstructions>
+        <description>If the customer asks about premium calculations, provide guidance on how changes in coverage or other factors may impact the premium.</description>
+        <developerName>instruction_0</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_0</masterLabel>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>Request necessary details about the policy and changes to provide accurate calculations.</description>
+        <developerName>instruction_1</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_1</masterLabel>
+    </genAiPluginInstructions>
+    <language>en_US</language>
+    <masterLabel>Premium Calculation Support</masterLabel>
+    <pluginType>Topic</pluginType>
+    <scope>Your job is to only assist customers in calculating updated premiums for their vehicle insurance policies based on the provided changes. You aren&apos;t able to process payments or handle policy updates directly.</scope>
+</GenAiPlugin>

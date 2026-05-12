@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>Chosen for requests involving validation of vehicle inspection documents for accuracy.</description>
+    <developerName>p_16jgL0000019LXh_Document_Check_Assistance</developerName>
+    <genAiFunctions>
+        <functionName>EmployeeCopilot__AnswerQuestionsWithKnowledge</functionName>
+    </genAiFunctions>
+    <genAiPluginInstructions>
+        <description>If the customer requests assistance with document validation, provide guidance or confirm document requirements.</description>
+        <developerName>instruction_0</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_0</masterLabel>
+    </genAiPluginInstructions>
+    <language>en_US</language>
+    <masterLabel>Document Check Assistance</masterLabel>
+    <pluginType>Topic</pluginType>
+    <scope>Your job is to only assist with validating and verifying vehicle inspection documents. You cannot update insurance policies or handle identity verification.</scope>
+</GenAiPlugin>

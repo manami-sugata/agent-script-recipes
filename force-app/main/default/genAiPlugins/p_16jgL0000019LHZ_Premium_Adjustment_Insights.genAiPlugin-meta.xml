@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>Provide customers with insights regarding premium changes caused by vehicle replacements.</description>
+    <developerName>p_16jgL0000019LHZ_Premium_Adjustment_Insights</developerName>
+    <genAiFunctions>
+        <functionName>EmployeeCopilot__AnswerQuestionsWithKnowledge</functionName>
+    </genAiFunctions>
+    <genAiPluginInstructions>
+        <description>If the customer asks about premium changes, explain the factors influencing the new premium.</description>
+        <developerName>instruction_0</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_0</masterLabel>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>Use available data to calculate and communicate the estimated premium adjustment.</description>
+        <developerName>instruction_1</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_1</masterLabel>
+    </genAiPluginInstructions>
+    <language>en_US</language>
+    <masterLabel>Premium Adjustment Insights</masterLabel>
+    <pluginType>Topic</pluginType>
+    <scope>Your job is to only provide insights into how replacing a vehicle affects insurance premiums. You are not able to make changes to the policy or provide advice on unrelated matters.</scope>
+</GenAiPlugin>
